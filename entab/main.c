@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 }
 
 static Arguments parse_arguments(int argc, char *argv[]) {
-  if (argc < 2) {
+  if (argc < 3) {
     printf("Usage: %s <input_file> <output_file>\n", argv[0]);
     exit(EXIT_FAILURE);
   }
