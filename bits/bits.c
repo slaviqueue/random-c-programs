@@ -1,13 +1,6 @@
 #include "bits.h"
 #include <stdio.h>
 
-static void print_bits(uint n) {
-  for (int i = sizeof(uint) * 8 - 1; i >= 0; i--)
-    printf("%d", n >> i & 1);
-
-  printf("\n");
-}
-
 uint get_bits(uint source, int position, int numbits) {
   return (source >> (position + 1 - numbits)) & ~(~0 << numbits);
 }
