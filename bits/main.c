@@ -1,10 +1,10 @@
-#include "bits.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "bits.h"
 
 static void print_bits(uint n);
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   uint get_bits_test_number_input = 0b01010101;
   uint get_bits_test_number_output = get_bits(0b01010101, 2, 3);
 

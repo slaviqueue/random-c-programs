@@ -3,10 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-static void read_hex(char *buffer, int size);
-static int htoi(char *hex);
+static void read_hex(char* buffer, int size);
+static int htoi(char* hex);
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   while (true) {
     printf("Enter your hex number: ");
 
@@ -24,14 +24,14 @@ int main(int argc, char *argv[]) {
   return EXIT_SUCCESS;
 }
 
-static void read_hex(char *buffer, int size) {
+static void read_hex(char* buffer, int size) {
   fgets(buffer, size, stdin);
 
   // strip new line
   buffer[strlen(buffer) - 1] = 0;
 }
 
-static int htoi(char *hex) {
+static int htoi(char* hex) {
   if (*hex == '0' && hex[1] == 'X' || hex[1] == 'x')
     hex += 2;
 

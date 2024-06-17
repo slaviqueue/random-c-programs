@@ -2,9 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char *argv[]) {
-  printf("Yo, here are some data type ranges according to what we've found in "
-         "<limits.h>:\n");
+int main(int argc, char* argv[]) {
+  printf(
+      "Yo, here are some data type ranges according to what we've found in "
+      "<limits.h>:\n");
 
   printf("Signed char: min = %d, max = %d\n", SCHAR_MIN, SCHAR_MAX);
   printf("Unsigned char: min = 0, max = %d\n", UCHAR_MAX);

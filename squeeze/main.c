@@ -3,14 +3,14 @@
 #include <stdlib.h>
 
 typedef struct {
-  char *s1;
-  char *s2;
+  char* s1;
+  char* s2;
 } Arguments;
 
-static Arguments parse_arguments(int argc, char *argv[]);
-static void squeeze(char *s1, char *s2);
+static Arguments parse_arguments(int argc, char* argv[]);
+static void squeeze(char* s1, char* s2);
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   Arguments args = parse_arguments(argc, argv);
 
   squeeze(args.s1, args.s2);
@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
   return EXIT_SUCCESS;
 }
 
-static Arguments parse_arguments(int argc, char *argv[]) {
+static Arguments parse_arguments(int argc, char* argv[]) {
   if (argc < 3) {
     printf("Usage: %s <s1> <s2>\n", argv[0]);
     exit(EXIT_FAILURE);
@@ -31,7 +31,7 @@ static Arguments parse_arguments(int argc, char *argv[]) {
   };
 }
 
-static void squeeze(char *s1, char *s2) {
+static void squeeze(char* s1, char* s2) {
   int i = 0, j = 0;
 
   for (; s1[i] != '\0'; i++) {
