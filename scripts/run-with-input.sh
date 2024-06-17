@@ -9,6 +9,6 @@ if [ -z "$program_to_run" ] || [ -z "$input_file" ]; then
     exit 1
 fi
 
-mkdir -p build
-gcc -o ./build/$program_to_run ./$program_to_run/*.c
+mkdir -p ./build/programs/
+gcc -o ./build/$program_to_run $program_to_run/*.c
 cat $input_file | ./build/$program_to_run

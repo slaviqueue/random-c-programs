@@ -8,5 +8,5 @@ if [ -z "$program_to_build" ]; then
     exit 1
 fi
 
-mkdir -p build
-gcc -o ./build/$program_to_build ./$program_to_build/*.c
+mkdir -p ./build/programs/
+gcc -o ./build/$program_to_build $program_to_build/*.c

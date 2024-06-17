@@ -21,11 +21,11 @@ int main(int argc, char* argv[]) {
       set_bits(set_bits_test_input_s1, 5, 3, set_bits_test_input_s2);
 
   printf("Assign first 3 bits of S2 to bits 5, 4, 3 of S1\n");
-  printf("S1: ");
+  printf("S1:\t");
   print_bits(set_bits_test_input_s1);
-  printf("S2: ");
+  printf("S2:\t");
   print_bits(set_bits_test_input_s2);
-  printf("Result: ");
+  printf("Result:\t");
   print_bits(set_bits_output);
 
   return EXIT_SUCCESS;
