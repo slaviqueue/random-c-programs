@@ -1,6 +1,5 @@
 #include "esc.h"
 #include <criterion/criterion.h>
-#include <string.h>
 
 Test(esc_escape, changes_made) {
   char* s1 = "Hello,\t my name is\n Slim\nShady";
