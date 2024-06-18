@@ -18,5 +18,5 @@ int main(int argc, char* argv[]) {
 // personally, I find this code disgusting
 static void lower(char* s) {
   for (; *s != '\0'; s++)
-    *s = *s >= 'A' && *s <= 'Z' ? *s + LOWER_OFFSET : *s;
+    *s = (*s >= 'A' && *s <= 'Z') ? *s + LOWER_OFFSET : *s;
 }
