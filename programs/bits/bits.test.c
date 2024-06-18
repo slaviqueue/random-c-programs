@@ -1,6 +1,5 @@
 #include "bits.h"
 #include <criterion/criterion.h>
-#include <criterion/internal/assert.h>
 #include <sys/types.h>
 
 Test(set_bits, regular_input) {
