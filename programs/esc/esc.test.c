@@ -1,6 +1,5 @@
 #include "esc.h"
 #include <criterion/criterion.h>
-#include <stdio.h>
 #include <string.h>
 
 Test(esc_escape, changes_made) {
