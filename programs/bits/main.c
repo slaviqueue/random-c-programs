@@ -6,7 +6,7 @@ static void print_bits(uint n);
 
 int main(int argc, char* argv[]) {
   uint get_bits_test_number_input = 0b01010101;
-  uint get_bits_test_number_output = get_bits(0b01010101, 2, 3);
+  uint get_bits_test_number_output = bits_get(0b01010101, 2, 3);
 
   printf("Given a number: \t");
   print_bits(get_bits_test_number_input);
@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
   uint set_bits_test_input_s1 = 0b11111111;
   uint set_bits_test_input_s2 = 0b00000000;
   uint set_bits_output =
-      set_bits(set_bits_test_input_s1, 5, 3, set_bits_test_input_s2);
+      bits_set(set_bits_test_input_s1, 5, 3, set_bits_test_input_s2);
 
   printf("Assign first 3 bits of S2 to bits 5, 4, 3 of S1\n");
   printf("S1:\t");
