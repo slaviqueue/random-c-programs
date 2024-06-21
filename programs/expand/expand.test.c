@@ -1,7 +1,5 @@
 #include "expand.h"
 #include <criterion/criterion.h>
-#include <stdio.h>
-#include <string.h>
 
 Test(expand, az) {
   char* s1 = "Here's the alphabet: a-z";
