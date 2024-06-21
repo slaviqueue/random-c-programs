@@ -74,3 +74,23 @@ Test(expand, invalid_combination) {
 
   cr_expect_str_eq(s2, expected);
 }
+
+Test(expand, one_more_invalid_combination) {
+  char* s1 = "a--d";
+  char s2[16];
+  char* expected = "a--d";
+
+  expand(s1, s2);
+
+  cr_expect_str_eq(s2, expected);
+}
+
+Test(expand, hyphen_at_the_end) {
+  char* s1 = "a-f-";
+  char s2[16];
+  char* expected = "abcdef-";
+
+  expand(s1, s2);
+
+  cr_expect_str_eq(s2, expected);
+}
