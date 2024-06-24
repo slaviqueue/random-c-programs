@@ -1,5 +1,4 @@
 #include <math.h>
-#include <stdio.h>
 
 double atofs(char* str) {
   int sign = 1;
