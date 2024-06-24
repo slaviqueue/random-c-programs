@@ -10,5 +10,5 @@ if [ -z "$program_to_run" ] || [ -z "$input_file" ]; then
 fi
 
 mkdir -p ./build/programs/
-gcc -o ./build/$program_to_run $program_to_run/*.c
+gcc -o ./build/$program_to_run $program_to_run/*.c -Wall
 cat $input_file | ./build/$program_to_run

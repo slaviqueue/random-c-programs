@@ -19,7 +19,7 @@ Test(binsearch, even_arr) {
   int expected_index_of_9 = 2;
   int actual_index_of_9 = binsearch(arr, arr_len, 9);
 
-  cr_expect_eq(1, 1);
+  cr_expect_eq(expected_index_of_9, actual_index_of_9);
 }
 
 Test(binsearch, not_found) {

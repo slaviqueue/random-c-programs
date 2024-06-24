@@ -11,6 +11,6 @@ fi
 mkdir -p ./build/programs/
 
 source_files=$(ls $program_to_test/*.c | grep -v main.c)
-gcc -lcriterion -lm -o ./build/$program.test $source_files $gcc_flags
+gcc -lcriterion -o ./build/$program_to_test.test $source_files -Wall $gcc_flags
 
-./build/$program.test
+./build/$program_to_test.test

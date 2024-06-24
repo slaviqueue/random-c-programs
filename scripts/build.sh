@@ -2,6 +2,7 @@
 
 set -e
 program_to_build=$1
+gcc_flags=$2
 
 if [ -z "$program_to_build" ]; then
     echo "Usage: $0 <program_to_build>"
@@ -9,4 +10,4 @@ if [ -z "$program_to_build" ]; then
 fi
 
 mkdir -p ./build/programs/
-gcc -o ./build/$program_to_build $program_to_build/*.c
+gcc -o ./build/$program_to_build $program_to_build/*.c -Wall $gcc_flags
