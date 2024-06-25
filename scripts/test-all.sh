@@ -5,7 +5,7 @@ success=1
 
 for program in $programs_to_test; do
     source_files=$(ls ./programs/$program/*.c | grep -v main.c)
-    gcc -o ./build/$program.test $source_files -lm  -lcriterion -Wall
+    gcc -Iprograms -lm -lcriterion -g -Wall -o ./build/$program.test $source_files
 
     ./build/$program.test
 
