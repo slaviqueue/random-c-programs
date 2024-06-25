@@ -1,7 +1,5 @@
 #include "stack.h"
 #include <assert.h>
-#include <stdio.h>
-#include <string.h>
 
 Stack stack_make() {
   Stack s;
@@ -15,5 +13,6 @@ void stack_push(Stack* stack, double value) {
 }
 
 double stack_pop(Stack* stack) {
+  assert((stack->_next_free_index) > 0 && "Cannot pop anymore");
   return stack->_buffer[--stack->_next_free_index];
 }

@@ -1,17 +1,19 @@
-#include "token.h"
+#include "getop.h"
 #include <ctype.h>
 #include <stdbool.h>
-#include <stdio.h>
 #include "common.h"
 #include "io.h"
 
 static bool isarithmeticop(char c);
 
-TokenType token_read_to(char* buffer) {
+TokenType getop(char* buffer) {
   char current;
 
-  while (isspace(current = io_getch()))
+  while (isblank(current = io_getch()) && current != '\n')
     ;
+
+  if (current == '\n')
+    return TOKEN_NEWLINE;
 
   if (current == EOF)
     return TOKEN_EOF;
@@ -48,6 +50,7 @@ TokenType token_read_to(char* buffer) {
 
   if (isalpha(current)) {
     *buffer++ = current;
+
     while (isalpha(current = io_getch()) || isdigit(current))
       *buffer++ = current;
 
@@ -67,5 +70,5 @@ TokenType token_read_to(char* buffer) {
 }
 
 static bool isarithmeticop(char c) {
-  return c == '+' || c == '-' || c == '*' || c == '/';
+  return c == '+' || c == '-' || c == '*' || c == '/' || c == '%';
 }

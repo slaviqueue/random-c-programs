@@ -1,3 +1,3 @@
 #pragma once
 
-double rpn_eval(char* str);
+void rpn_eval();
