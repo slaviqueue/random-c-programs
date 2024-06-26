@@ -1,5 +1,7 @@
 # random-c-programs
 
+![test workflow](https://github.com/slaviqueue/random-c-programs/actions/workflows/test.yaml/badge.svg)
+
 A set of random c programs that I write to practice my c skills.
 
 (actually some directories don't contain programs, but an implementation of a
