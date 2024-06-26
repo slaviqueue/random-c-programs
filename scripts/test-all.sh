@@ -1,10 +1,12 @@
 #!/bin/bash
 
-gcc_flags="-Iprograms -Wall -g $2"
+gcc_flags="-Iprograms -Wall -g"
 gcc_libs="-lcriterion -lm"
 
 programs_to_test=$(find ./programs -name '*.test.c' | sed 's|/[^/]*$||' | sed 's|./programs/||g' | sort | uniq)
 success=1
+
+mkdir -p ./build/programs/
 
 for program in $programs_to_test; do
     source_files=$(ls ./programs/$program/*.c | grep -v main.c)
