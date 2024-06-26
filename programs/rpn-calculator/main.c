@@ -6,6 +6,5 @@
 
 int main(int argc, char* argv[]) {
   rpn_eval();
-
   return EXIT_SUCCESS;
 }

@@ -12,9 +12,8 @@ static bool is_operation(Token token, char* operation_name);
 
 void rpn_eval() {
   Stack stack = stack_make();
-
-  Token token;
   Lexer lexer = lexer_make();
+  Token token;
 
   printf("> ");
   while ((token = lexer_next_token(&lexer)).type != TOKEN_EOF) {
@@ -52,7 +51,7 @@ void rpn_eval() {
         if (is_operation(token, "/") || is_operation(token, "div")) {
           double op1 = stack_pop(&stack);
           double op2 = stack_pop(&stack);
-          stack_push(&stack, op1 * op2);
+          stack_push(&stack, op1 / op2);
           break;
         }
 
@@ -79,7 +78,7 @@ void rpn_eval() {
         }
 
         if (is_operation(token, "print")) {
-          printf("%f\n", stack_pop(&stack));
+          printf("%f\n", stack_head(&stack));
           break;
         }
 

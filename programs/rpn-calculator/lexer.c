@@ -41,6 +41,7 @@ Token lexer_next_token(Lexer* lexer) {
     }
 
     revert(lexer);
+    lexer->_current = '-';
   }
 
   if (isalpha(current(lexer))) {
@@ -50,7 +51,7 @@ Token lexer_next_token(Lexer* lexer) {
       eat_one(lexer);
 
     revert(lexer);
-    *lexer->_buffpos = '\0';
+    put(lexer, '\0');
     return emit_token(TOKEN_OPERATION, lexer);
   }
 

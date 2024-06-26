@@ -16,3 +16,8 @@ double stack_pop(Stack* stack) {
   assert((stack->_next_free_index) > 0 && "Cannot pop anymore");
   return stack->_buffer[--stack->_next_free_index];
 }
+
+double stack_head(Stack* stack) {
+  assert((stack->_next_free_index) >= 0 && "Cannot pop anymore");
+  return stack->_buffer[stack->_next_free_index - 1];
+}

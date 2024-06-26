@@ -10,3 +10,4 @@ typedef struct Stack {
 Stack stack_make();
 void stack_push(Stack* stack, double value);
 double stack_pop(Stack* stack);
+double stack_head(Stack* stack);
