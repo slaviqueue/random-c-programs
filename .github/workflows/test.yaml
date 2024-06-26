@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Install GCC
-      run: sudo apt-get update && sudo apt-get install -y gcc
+      run: sudo apt-get update && sudo apt-get install -y gcc libcriterion-dev
 
     - name: Run tests
       run: ./scripts/test-all.sh
