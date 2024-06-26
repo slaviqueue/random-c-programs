@@ -1,4 +1,5 @@
 #include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,6 +8,7 @@
 #include "stack.h"
 
 static void print_help(void);
+static bool is_operation(Token token, char* operation_name);
 
 void rpn_eval() {
   Stack stack = stack_make();
@@ -26,68 +28,68 @@ void rpn_eval() {
         break;
       }
       case TOKEN_OPERATION: {
-        if (!strcmp(token.value, "+") || !strcmp(token.value, "add")) {
+        if (is_operation(token, "+") || is_operation(token, "add")) {
           double op1 = stack_pop(&stack);
           double op2 = stack_pop(&stack);
           stack_push(&stack, op1 + op2);
           break;
         }
 
-        if (!strcmp(token.value, "-") || !strcmp(token.value, "sub")) {
+        if (is_operation(token, "-") || is_operation(token, "sub")) {
           double op1 = stack_pop(&stack);
           double op2 = stack_pop(&stack);
           stack_push(&stack, op1 - op2);
           break;
         }
 
-        if (!strcmp(token.value, "*") || !strcmp(token.value, "mul")) {
+        if (is_operation(token, "*") || is_operation(token, "mul")) {
           double op1 = stack_pop(&stack);
           double op2 = stack_pop(&stack);
           stack_push(&stack, op1 * op2);
           break;
         }
 
-        if (!strcmp(token.value, "/") || !strcmp(token.value, "div")) {
+        if (is_operation(token, "/") || is_operation(token, "div")) {
           double op1 = stack_pop(&stack);
           double op2 = stack_pop(&stack);
           stack_push(&stack, op1 * op2);
           break;
         }
 
-        if (!strcmp(token.value, "%") || !strcmp(token.value, "mod")) {
+        if (is_operation(token, "%") || is_operation(token, "mod")) {
           double op1 = stack_pop(&stack);
           double op2 = stack_pop(&stack);
           stack_push(&stack, (int)op1 % (int)op2);
           break;
         }
 
-        if (!strcmp(token.value, "sin")) {
+        if (is_operation(token, "sin")) {
           stack_push(&stack, sin(stack_pop(&stack)));
           break;
         }
 
-        if (!strcmp(token.value, "cos")) {
+        if (is_operation(token, "cos")) {
           stack_push(&stack, sin(stack_pop(&stack)));
           break;
         }
 
-        if (!strcmp(token.value, "tan")) {
+        if (is_operation(token, "tan")) {
           stack_push(&stack, sin(stack_pop(&stack)));
           break;
         }
 
-        if (!strcmp(token.value, "print")) {
+        if (is_operation(token, "print")) {
           printf("%f\n", stack_pop(&stack));
           break;
         }
 
-        if (!strcmp(token.value, "help")) {
+        if (is_operation(token, "help")) {
           print_help();
           break;
         }
 
-        if (!strcmp(token.value, "quit") || !strcmp(token.value, "q") ||
-            !strcmp(token.value, "exit")) {
+        if (is_operation(token, "quit") || is_operation(token, "q") ||
+            is_operation(token, "exit")) {
           printf("Bye!\n");
           exit(EXIT_SUCCESS);
           break;
@@ -124,4 +126,8 @@ static void print_help(void) {
       "  sin - Get sin of a number\n"
       "  quit (q, exit) - Exit\n"
       "  print - Print last number from the stack\n");
+}
+
+static bool is_operation(Token token, char* operation_name) {
+  return !strcmp(token.value, operation_name);
 }
