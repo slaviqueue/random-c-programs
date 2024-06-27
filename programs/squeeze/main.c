@@ -8,7 +8,7 @@ typedef struct {
 } Arguments;
 
 static Arguments parse_arguments(int argc, char* argv[]);
-static void squeeze(char* s1, char* s2);
+static void squeeze(char* s1, const char* s2);
 
 int main(int argc, char* argv[]) {
   Arguments args = parse_arguments(argc, argv);
@@ -31,8 +31,9 @@ static Arguments parse_arguments(int argc, char* argv[]) {
   };
 }
 
-static void squeeze(char* s1, char* s2) {
-  int i = 0, j = 0;
+static void squeeze(char* s1, const char* s2) {
+  int i = 0;
+  int j = 0;
 
   for (; s1[i] != '\0'; i++) {
     bool found = false;

@@ -1,7 +1,7 @@
 #include "binsearch.h"
 #include <stdio.h>
 
-int binsearch(int arr[], size_t len, int item) {
+int binsearch(const int arr[], size_t len, int item) {
   int left = 0;
   int right = len - 1;
 

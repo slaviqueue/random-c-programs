@@ -4,7 +4,7 @@
 #include "io.h"
 #include "rpn.h"
 
-int main(int argc, char* argv[]) {
+int main() {
   rpn_eval();
   return EXIT_SUCCESS;
 }

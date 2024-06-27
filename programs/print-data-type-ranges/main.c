@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char* argv[]) {
+int main() {
   printf(
       "Yo, here are some data type ranges according to what we've found in "
       "<limits.h>:\n");

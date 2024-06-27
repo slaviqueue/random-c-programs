@@ -6,7 +6,7 @@ static inline bool is_uppercase_letter(char c);
 static inline bool is_number(char c);
 static inline int expand_sequence(char from, char to, char* target);
 
-void expand(char* source, char* target) {
+void expand(const char* source, char* target) {
   for (int i = 0; source[i] != '\0'; i++) {
     if (source[i] != '-' || i == 0) {
       *(target++) = source[i];

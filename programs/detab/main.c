@@ -9,7 +9,7 @@ typedef struct {
 } Arguments;
 
 static Arguments parse_arguments(int argc, char* argv[]);
-static FILE* open_file_safe(char* file, char* mode);
+static FILE* open_file_safe(char* name, char* mode);
 static void detab(FILE* input, FILE* output);
 
 int main(int argc, char* argv[]) {

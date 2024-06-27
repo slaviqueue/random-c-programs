@@ -5,7 +5,7 @@
 
 static void lower(char* s);
 
-int main(int argc, char* argv[]) {
+int main() {
   char buffer[BUFSIZ];
   fgets(buffer, BUFSIZ, stdin);
 

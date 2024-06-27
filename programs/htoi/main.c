@@ -6,7 +6,7 @@
 static void read_hex(char* buffer, int size);
 static int htoi(char* hex);
 
-int main(int argc, char* argv[]) {
+int main() {
   while (true) {
     printf("Enter your hex number: ");
 

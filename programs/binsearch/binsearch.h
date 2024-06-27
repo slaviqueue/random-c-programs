@@ -2,4 +2,4 @@
 
 #include <stddef.h>
 
-int binsearch(int arr[], size_t len, int item);
+int binsearch(const int arr[], size_t len, int item);

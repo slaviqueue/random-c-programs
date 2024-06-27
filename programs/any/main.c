@@ -7,7 +7,7 @@ typedef struct {
 } Arguments;
 
 static Arguments parse_arguments(int argc, char *argv[]);
-static int any(char *s1, char *s2);
+static int any(const char *s1, const char *s2);
 
 int main(int argc, char *argv[]) {
   Arguments args = parse_arguments(argc, argv);
@@ -30,7 +30,7 @@ static Arguments parse_arguments(int argc, char *argv[]) {
   };
 }
 
-static int any(char *s1, char *s2) {
+static int any(const char *s1, const char *s2) {
   for (int i = 0; s1[i] != '\0'; i++)
     for (int j = 0; s2[j] != '\0'; j++)
       if (s1[i] == s2[j])

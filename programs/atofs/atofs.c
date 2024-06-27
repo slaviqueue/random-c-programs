@@ -18,7 +18,7 @@ double atofs(char* str) {
     result = result * 10 + *str - '0';
 
   if (*str == '\0')
-    return result *= sign;
+    return result * sign;
 
   if (*str == '.')
     str++;
@@ -33,7 +33,7 @@ double atofs(char* str) {
   result /= order;
 
   if (*str == '\0')
-    return result *= sign;
+    return result * sign;
 
   if (*str == 'e')
     str++;
@@ -52,5 +52,5 @@ double atofs(char* str) {
 
   result *= pow(10, exponent * exponent_sign);
 
-  return result *= sign;
+  return result * sign;
 }

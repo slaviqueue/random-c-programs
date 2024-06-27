@@ -1,4 +1,4 @@
-int strindexr(char* s, char* t) {
+int strindexr(const char* s, const char* t) {
   int match = -1;
 
   for (int i = 0; s[i] != '\0'; i++) {

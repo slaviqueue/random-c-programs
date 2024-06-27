@@ -4,7 +4,7 @@
 
 static void print_bits(uint n);
 
-int main(int argc, char* argv[]) {
+int main() {
   uint get_bits_test_number_input = 0b01010101;
   uint get_bits_test_number_output = bits_get(0b01010101, 2, 3);
 
