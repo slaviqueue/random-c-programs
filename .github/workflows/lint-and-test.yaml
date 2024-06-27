@@ -16,8 +16,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Install GCC and criterion
-      run: sudo apt-get update && sudo apt-get install -y gcc libcriterion-dev
+    - name: Install GCC, criterion and clang-tidy
+      run: |
+        sudo apt-get update \
+        && sudo apt-get install -y gcc libcriterion-dev clang-tidy
+
+    - name: Lint all
+      run: ./scripts/lint-all.sh
 
     - name: Run tests
       run: ./scripts/test-all.sh
