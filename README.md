@@ -1,6 +1,6 @@
 # random-c-programs
 
-![test workflow](https://github.com/slaviqueue/random-c-programs/actions/workflows/test.yaml/badge.svg)
+![lint-and-test](https://github.com/slaviqueue/random-c-programs/actions/workflows/lint-and-test.yaml/badge.svg)
 
 A set of random c programs that I write to practice my c skills.
 
