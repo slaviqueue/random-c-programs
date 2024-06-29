@@ -5,7 +5,7 @@
 A set of random c programs that I write to practice my c skills.
 
 (actually some directories don't contain programs, but just a function with a
-bunch of tests, but I don want to rename the repo)
+bunch of tests, but I don't want to rename the repo)
 
 
 ## Building and running programs
