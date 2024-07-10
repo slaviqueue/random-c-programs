@@ -13,15 +13,16 @@ Test(getword, gets_word) {
 
   char buf[MAX_WORD_LEN] = {0};
   char* first_char = NULL;
+  int line_number = 0;
 
-  first_char = getword(buf, MAX_WORD_LEN);
+  first_char = getword(buf, MAX_WORD_LEN, &line_number);
   cr_expect_str_eq(buf, "hey");
   cr_expect_eq(first_char, buf);
 
-  first_char = getword(buf, MAX_WORD_LEN);
+  first_char = getword(buf, MAX_WORD_LEN, &line_number);
   cr_expect_str_eq(buf, "there");
   cr_expect_eq(first_char, buf);
 
-  first_char = getword(buf, MAX_WORD_LEN);
+  first_char = getword(buf, MAX_WORD_LEN, &line_number);
   cr_expect_eq(first_char, NULL);
 }

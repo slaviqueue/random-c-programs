@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wordcount/getword.h"
+#include "wordcount/lines-list.h"
 #include "wordcount/words-binary-tree.h"
 
 #define MAX_WORD_LEN 128
@@ -18,11 +19,12 @@ int main(int argc, char** argv) {
 
   struct WordsBinaryTree tree = words_binary_tree_make();
   char buf[MAX_WORD_LEN] = {0};
+  int line_number = 1;
 
-  while (getword(buf, MAX_WORD_LEN))
+  while (getword(buf, MAX_WORD_LEN, &line_number))
     if (!args.exclude_words_smaller_than ||
         strlen(buf) >= args.exclude_words_smaller_than)
-      words_binary_tree_push_word(&tree, buf);
+      words_binary_tree_push_word(&tree, buf, line_number);
 
   words_binary_tree_for_each_node(&tree, print_node);
 
@@ -30,7 +32,12 @@ int main(int argc, char** argv) {
 }
 
 static void print_node(struct WordsBinaryTreeNode* node) {
-  printf("%s: %d\n", node->word, node->count);
+  printf("\"%.10s\" \t%d times \t", node->word, node->count);
+
+  for (struct LinesListNode* line = node->lines; line; line = line->next)
+    printf(line->next ? "%d " : "%d", line->line_number);
+
+  printf("\n");
 }
 
 static struct Arguments parse_args(int argc, char** argv) {

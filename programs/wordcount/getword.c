@@ -2,12 +2,13 @@
 #include <ctype.h>
 #include <stdio.h>
 
-char* getword(char* buf, int max_len) {
+char* getword(char* buf, int max_len, int* line_number) {
   char* buf_start = buf;
   char current_char;
 
   while (isspace(current_char = getc(stdin)))
-    ;
+    if (current_char == '\n')
+      (*line_number)++;
 
   if (current_char == EOF)
     return NULL;

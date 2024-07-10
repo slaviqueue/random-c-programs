@@ -4,11 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "wordcount/lines-list.h"
 
-static struct WordsBinaryTreeNode* make_node(char* word);
-static struct WordsBinaryTreeNode* push_to_node(
-    struct WordsBinaryTreeNode* node,
-    char* word);
+static struct WordsBinaryTreeNode* make_node(char* word, int line_number);
+static struct WordsBinaryTreeNode*
+push_to_node(struct WordsBinaryTreeNode* node, char* word, int line_number);
 static void for_each_node(struct WordsBinaryTreeNode* node,
                           void fn(struct WordsBinaryTreeNode*));
 static char* copy_word(char* word);
@@ -20,11 +20,13 @@ struct WordsBinaryTree words_binary_tree_make() {
   return tree;
 }
 
-void words_binary_tree_push_word(struct WordsBinaryTree* tree, char* word) {
-  tree->root = push_to_node(tree->root, word);
+void words_binary_tree_push_word(struct WordsBinaryTree* tree,
+                                 char* word,
+                                 int line_number) {
+  tree->root = push_to_node(tree->root, word, line_number);
 }
 
-static struct WordsBinaryTreeNode* make_node(char* word) {
+static struct WordsBinaryTreeNode* make_node(char* word, int line_number) {
   struct WordsBinaryTreeNode* node = malloc(sizeof(struct WordsBinaryTreeNode));
 
   if (node == NULL)
@@ -34,24 +36,27 @@ static struct WordsBinaryTreeNode* make_node(char* word) {
   node->count = 1;
   node->left = NULL;
   node->right = NULL;
+  node->lines = NULL;
+
+  lines_list_add(&node->lines, line_number);
 
   return node;
 }
 
-static struct WordsBinaryTreeNode* push_to_node(
-    struct WordsBinaryTreeNode* node,
-    char* word) {
+static struct WordsBinaryTreeNode*
+push_to_node(struct WordsBinaryTreeNode* node, char* word, int line_number) {
   if (node == NULL)
-    return make_node(word);
+    return make_node(word, line_number);
 
   int comparison = strcmp(word, node->word);
 
-  if (comparison == 0)
+  if (comparison == 0) {
     node->count++;
-  else if (comparison < 0)
-    node->left = push_to_node(node->left, word);
+    lines_list_add(&node->lines, line_number);
+  } else if (comparison < 0)
+    node->left = push_to_node(node->left, word, line_number);
   else
-    node->right = push_to_node(node->right, word);
+    node->right = push_to_node(node->right, word, line_number);
 
   return node;
 }
