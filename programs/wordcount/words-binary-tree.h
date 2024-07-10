@@ -3,6 +3,7 @@
 struct WordsBinaryTreeNode {
   char* word;
   int count;
+  int compare_first_n_characters;
   struct WordsBinaryTreeNode* left;
   struct WordsBinaryTreeNode* right;
 };
