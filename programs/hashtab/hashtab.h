@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdbool.h>
 #define BUCKETS_LEN 64
 
 typedef struct BucketNode {
@@ -13,6 +14,6 @@ typedef struct {
 } Hashtab;
 
 Hashtab hashtab_make();
-void hashtab_set(Hashtab* self, char* key, char* value);
+bool hashtab_set(Hashtab* self, char* key, char* value);
 char* hashtab_get(Hashtab* self, char* key);
 void hashtab_free(Hashtab* self);

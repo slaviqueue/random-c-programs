@@ -1,9 +1,10 @@
 #include "hashtab.h"
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
 static int calculate_hash(char* str, int mod);
-static void append_to_bucket(BucketNode** key_list, char* key, char* value);
+static bool append_to_bucket(BucketNode** key_list, char* key, char* value);
 static BucketNode* make_bucket_node(char* key, char* value);
 static void free_bucket(BucketNode** bucket);
 
@@ -12,9 +13,10 @@ Hashtab hashtab_make() {
   return tab;
 }
 
-void hashtab_set(Hashtab* self, char* key, char* value) {
+bool hashtab_set(Hashtab* self, char* key, char* value) {
   int hash = calculate_hash(key, BUCKETS_LEN);
-  append_to_bucket(&self->_buckets[hash], key, value);
+  bool result = append_to_bucket(&self->_buckets[hash], key, value);
+  return result;
 }
 
 char* hashtab_get(Hashtab* self, char* key) {
@@ -48,10 +50,15 @@ void hashtab_free(Hashtab* self) {
       free_bucket(&self->_buckets[i]);
 }
 
-static void append_to_bucket(BucketNode** key_list, char* key, char* value) {
+static bool append_to_bucket(BucketNode** key_list, char* key, char* value) {
+  BucketNode* new_node = make_bucket_node(key, value);
+
+  if (!new_node)
+    return false;
+
   if (!*key_list) {
-    *key_list = make_bucket_node(key, value);
-    return;
+    *key_list = new_node;
+    return true;
   }
 
   BucketNode* node = *key_list;
@@ -59,11 +66,16 @@ static void append_to_bucket(BucketNode** key_list, char* key, char* value) {
   while (node->_next)
     node = node->_next;
 
-  node->_next = make_bucket_node(key, value);
+  node->_next = new_node;
+  return true;
 }
 
 static BucketNode* make_bucket_node(char* key, char* value) {
   BucketNode* node = malloc(sizeof(BucketNode));
+
+  if (!node)
+    return NULL;
+
   node->_key = key;
   node->_value = value;
   node->_next = NULL;
