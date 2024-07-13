@@ -19,9 +19,36 @@ bool hashtab_set(Hashtab* self, char* key, char* value) {
   return result;
 }
 
-char* hashtab_get(Hashtab* self, char* key) {
+void hashtab_unset(Hashtab* self, char* key) {
   int hash = calculate_hash(key, BUCKETS_LEN);
   BucketNode* node = self->_buckets[hash];
+
+  if (!node)
+    return;
+
+  if (!strcmp(node->_key, key)) {
+    self->_buckets[hash] = node->_next;
+    free(node);
+    return;
+  }
+
+  BucketNode* previous_node = node;
+  BucketNode* next_node = node->_next;
+
+  while (next_node) {
+    if (!strcmp(next_node->_key, key)) {
+      previous_node->_next = next_node->_next;
+      free(next_node);
+      return;
+    }
+
+    previous_node = next_node;
+    next_node = next_node->_next;
+  }
+}
+
+char* hashtab_get(Hashtab* self, char* key) {
+  int hash = calculate_hash(key, BUCKETS_LEN);
 
   for (BucketNode* node = self->_buckets[hash]; node != NULL;
        node = node->_next)

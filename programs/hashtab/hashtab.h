@@ -15,5 +15,6 @@ typedef struct {
 
 Hashtab hashtab_make();
 bool hashtab_set(Hashtab* self, char* key, char* value);
+void hashtab_unset(Hashtab* self, char* key);
 char* hashtab_get(Hashtab* self, char* key);
 void hashtab_free(Hashtab* self);
