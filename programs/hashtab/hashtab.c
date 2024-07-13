@@ -23,12 +23,10 @@ char* hashtab_get(Hashtab* self, char* key) {
   int hash = calculate_hash(key, BUCKETS_LEN);
   BucketNode* node = self->_buckets[hash];
 
-  while (node) {
+  for (BucketNode* node = self->_buckets[hash]; node != NULL;
+       node = node->_next)
     if (!strcmp(key, node->_key))
       return node->_value;
-
-    node = node->_next;
-  }
 
   return NULL;
 }
@@ -63,8 +61,12 @@ static bool append_to_bucket(BucketNode** key_list, char* key, char* value) {
 
   BucketNode* node = *key_list;
 
-  while (node->_next)
-    node = node->_next;
+  for (BucketNode* node = *key_list; node != NULL; node = node->_next) {
+    if (!strcmp(key, node->_key)) {
+      node->_value = value;
+      return true;
+    }
+  }
 
   node->_next = new_node;
   return true;
