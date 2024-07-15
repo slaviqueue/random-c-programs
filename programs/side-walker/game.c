@@ -23,6 +23,7 @@ void game_free(GameState** self) {
   player_free(&(*self)->_player);
   world_free(&(*self)->_world);
   free(*self);
+  *self = NULL;
 }
 
 void game_init(GameState* self) {
