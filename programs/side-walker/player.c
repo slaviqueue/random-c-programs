@@ -5,6 +5,7 @@
 #include "side-walker/colors.h"
 #include "side-walker/common.h"
 #include "side-walker/point.h"
+#include "side-walker/viewport.h"
 #include "side-walker/world.h"
 
 static bool can_go_through(Player* player, World* world, Point offset);
@@ -54,11 +55,11 @@ void player_control(Player* self, World* world) {
     self->_is_falling = false;
 }
 
-void player_draw(Player* self) {
-  move(self->_position_y, self->_position_x);
-  attron(COLOR_PAIR(ColorPairPlayer));
-  printw("F");
-  attroff(COLOR_PAIR(ColorPairPlayer));
+void player_draw(Player* self, Viewport* viewport) {
+  ViewportBoundingRect viewport_brect = viewport_get_bouding_rect(viewport);
+  Point screen_position = {self->_position_x - viewport_brect.top_left.x,
+                           self->_position_y - viewport_brect.top_left.y};
+  viewport_draw(viewport, screen_position, '@', ColorPairPlayer);
 }
 
 static bool can_go_through(Player* player, World* world, Point offset) {

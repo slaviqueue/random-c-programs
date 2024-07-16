@@ -9,13 +9,15 @@ typedef enum {
   ColorTreeFg = 47,
   ColorPlayerBg = 9,
   ColorPlayerFg = 1,
+  ColorSkyBg = 123,
 } Color;
 
 typedef enum {
   ColorPairGrass = 16,
   ColorPairDirt,
   ColorPairTree,
-  ColorPairPlayer
+  ColorPairPlayer,
+  ColorPairSky,
 } ColorPair;
 
 void colors_register();

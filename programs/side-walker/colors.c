@@ -6,4 +6,5 @@ void colors_register() {
   init_pair(ColorPairDirt, ColorDirtFg, ColorDirtBg);
   init_pair(ColorPairTree, ColorTreeFg, ColorTreeBg);
   init_pair(ColorPairPlayer, ColorPlayerFg, ColorPlayerBg);
+  init_pair(ColorPairSky, ColorSkyBg, ColorSkyBg);
 }

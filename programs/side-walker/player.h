@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdbool.h>
+#include "side-walker/viewport.h"
 #include "side-walker/world.h"
 
 typedef struct {
@@ -12,4 +13,4 @@ typedef struct {
 Player* player_make();
 void player_free(Player** self);
 void player_control(Player* self, World* world);
-void player_draw(Player* self);
+void player_draw(Player* self, Viewport* viewport);

@@ -22,7 +22,6 @@ int main() {
 static void print_palette() {
   const int palette_width = 20;
   const int cell_width = 3;
-  refresh();
 
   for (int i = 0; i < 500; i++) {
     init_pair(i, 0, i);
@@ -31,6 +30,8 @@ static void print_palette() {
              cell_width, i);
     attroff(COLOR_PAIR(i));
   }
+
+  refresh();
 
   while (true)
     getch();

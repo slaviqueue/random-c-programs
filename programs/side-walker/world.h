@@ -1,10 +1,9 @@
 #pragma once
 
 #include <stdbool.h>
+#include "side-walker/defs.h"
 #include "side-walker/point.h"
-
-#define WORLD_WIDTH 100
-#define WORLD_HEIGHT 64
+#include "side-walker/viewport.h"
 
 typedef enum {
   BlockTypeEmpty,
@@ -22,6 +21,6 @@ typedef struct {
 World* world_make();
 void world_free(World** self);
 void world_generate(World* self);
-void world_draw(World* self);
+void world_draw(World* self, Viewport* viewport);
 BlockType world_get_block_type(World* self, Point p);
 bool world_is_penetrable(World* self, Point p);

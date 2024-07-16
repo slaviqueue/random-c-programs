@@ -1,11 +1,13 @@
 #pragma once
 
 #include "side-walker/player.h"
+#include "side-walker/viewport.h"
 #include "side-walker/world.h"
 
 typedef struct {
   World* _world;
   Player* _player;
+  Viewport* _viewport;
 } GameState;
 
 GameState* game_make();

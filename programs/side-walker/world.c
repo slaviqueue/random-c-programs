@@ -5,6 +5,8 @@
 #include <string.h>
 #include "side-walker/colors.h"
 #include "side-walker/common.h"
+#include "side-walker/defs.h"
+#include "side-walker/viewport.h"
 
 World* world_make() {
   World* world = malloc(sizeof(World));
@@ -12,8 +14,7 @@ World* world_make() {
   if (!world)
     crash("could not allocate world");
 
-  memset(world->_grid, BlockTypeEmpty,
-         WORLD_HEIGHT * WORLD_WIDTH * sizeof(BlockType));
+  memset(world->_grid, BlockTypeEmpty, sizeof(world->_grid));
   world->_height = WORLD_HEIGHT;
   world->_width = WORLD_WIDTH;
 
@@ -49,36 +50,38 @@ void world_generate(World* self) {
   }
 }
 
-void world_draw(World* self) {
-  for (int x = 0; x < self->_width; x++) {
-    for (int y = 0; y < self->_height; y++) {
-      move(y, x);
+void world_draw(World* self, Viewport* viewport) {
+  ViewportBoundingRect viewport_brect = viewport_get_bouding_rect(viewport);
 
-      switch (self->_grid[x][y]) {
+  for (int x = 0; x < viewport->_viewport_width; x++) {
+    for (int y = 0; y < viewport->_viewport_height; y++) {
+      int world_x = viewport_brect.top_left.x + x;
+      int world_y = viewport_brect.top_left.y + y;
+
+      if (world_x < 0 || world_y < 0)
+        continue;
+
+      BlockType world_block = self->_grid[world_x][world_y];
+      Point point = {x, y};
+
+      switch (world_block) {
         case BlockTypeEmpty:
-          printw(" ");
+          viewport_draw(viewport, point, ' ', ColorPairSky);
           break;
         case BlockTypeGrass:
-          attron(COLOR_PAIR(ColorPairGrass));
-          printw(".");
-          attroff(COLOR_PAIR(ColorPairGrass));
+          viewport_draw(viewport, point, '.', ColorPairGrass);
           break;
         case BlockTypeDirt:
-          attron(COLOR_PAIR(ColorPairDirt));
-          printw(".");
-          attroff(COLOR_PAIR(ColorPairDirt));
+          viewport_draw(viewport, point, '.', ColorPairDirt);
           break;
         case BlockTypeTree:
-          attron(COLOR_PAIR(ColorPairTree));
-          printw("F");
-          attroff(COLOR_PAIR(ColorPairTree));
+          viewport_draw(viewport, point, 'F', ColorPairTree);
           break;
         default:
           break;
       }
     }
   }
-  refresh();
 }
 
 BlockType world_get_block_type(World* self, Point p) {

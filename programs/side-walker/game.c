@@ -4,6 +4,8 @@
 #include "side-walker/colors.h"
 #include "side-walker/common.h"
 #include "side-walker/player.h"
+#include "side-walker/point.h"
+#include "side-walker/viewport.h"
 #include "side-walker/world.h"
 
 static void handle_exit();
@@ -17,16 +19,20 @@ GameState* game_make() {
   if (!game)
     crash("could not allocate game");
 
+  game->_viewport = viewport_make();
   game->_player = player_make();
   game->_world = world_make();
+
   previous_cursor_mode = 0;
 
   return game;
 }
 
 void game_free(GameState** self) {
+  viewport_free(&(*self)->_viewport);
   player_free(&(*self)->_player);
   world_free(&(*self)->_world);
+
   free(*self);
   *self = NULL;
 }
@@ -35,20 +41,34 @@ void game_init(GameState* self) {
   init_curses();
   colors_register();
   world_generate(self->_world);
+  viewport_set_position(self->_viewport, (Point){self->_player->_position_x,
+                                                 self->_player->_position_y});
 }
 
 void game_loop(GameState* self) {
-  refresh();
   player_control(self->_player, self->_world);
-  world_draw(self->_world);
-  player_draw(self->_player);
+
+  Point viewport_position = viewport_get_position(self->_viewport);
+  Point new_viewport_position = viewport_position;
+
+  if (self->_player->_position_x - viewport_position.x > 3)
+    new_viewport_position.x++;
+  if (viewport_position.x - self->_player->_position_x > 3)
+    new_viewport_position.x--;
+
+  new_viewport_position.y = self->_player->_position_y;
+  viewport_set_position(self->_viewport, new_viewport_position);
+
+  refresh();
+  world_draw(self->_world, self->_viewport);
+  player_draw(self->_player, self->_viewport);
 }
 
 static void init_curses() {
   initscr();
   noecho();
   start_color();
-  timeout(100);
+  timeout(300);
 
   if (!has_colors()) {
     fprintf(stderr, "No colors\n");
