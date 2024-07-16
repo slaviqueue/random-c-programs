@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "side-walker/colors.h"
+#include "side-walker/common.h"
 #include "side-walker/point.h"
 #include "side-walker/world.h"
 
@@ -10,6 +11,10 @@ static bool can_go_through(Player* player, World* world, Point offset);
 
 Player* player_make() {
   Player* player = malloc(sizeof(Player));
+
+  if (!player)
+    crash("could not allocate player");
+
   player->_is_falling = true;
   player->_position_x = 10;
   player->_position_y = 10;
@@ -57,6 +62,6 @@ void player_draw(Player* self) {
 }
 
 static bool can_go_through(Player* player, World* world, Point offset) {
-  return is_penetrable(world, (Point){player->_position_x + offset.x,
-                                      player->_position_y + offset.y});
+  return world_is_penetrable(world, (Point){player->_position_x + offset.x,
+                                            player->_position_y + offset.y});
 }

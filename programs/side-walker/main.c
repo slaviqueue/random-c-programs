@@ -10,8 +10,6 @@
 // I don't know where to get all available colors in ncurses, so sometimes I
 // just print the whole palette to find a color I need
 static void print_palette();
-static void handle_exit();
-static void init_curses();
 
 int main() {
   GameState* game = game_make();

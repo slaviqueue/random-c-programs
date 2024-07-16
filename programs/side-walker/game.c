@@ -2,6 +2,7 @@
 #include <curses.h>
 #include <stdlib.h>
 #include "side-walker/colors.h"
+#include "side-walker/common.h"
 #include "side-walker/player.h"
 #include "side-walker/world.h"
 
@@ -12,6 +13,10 @@ static int previous_cursor_mode;
 
 GameState* game_make() {
   GameState* game = malloc(sizeof(GameState));
+
+  if (!game)
+    crash("could not allocate game");
+
   game->_player = player_make();
   game->_world = world_make();
   previous_cursor_mode = 0;
@@ -33,6 +38,7 @@ void game_init(GameState* self) {
 }
 
 void game_loop(GameState* self) {
+  refresh();
   player_control(self->_player, self->_world);
   world_draw(self->_world);
   player_draw(self->_player);
@@ -52,8 +58,6 @@ static void init_curses() {
   previous_cursor_mode = curs_set(0);
   atexit(handle_exit);
 }
-
-void loop() {}
 
 static void handle_exit() {
   curs_set(previous_cursor_mode);

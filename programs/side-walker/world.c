@@ -4,9 +4,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include "side-walker/colors.h"
+#include "side-walker/common.h"
 
 World* world_make() {
   World* world = malloc(sizeof(World));
+
+  if (!world)
+    crash("could not allocate world");
+
   memset(world->_grid, BlockTypeEmpty,
          WORLD_HEIGHT * WORLD_WIDTH * sizeof(BlockType));
   world->_height = WORLD_HEIGHT;
@@ -22,7 +27,7 @@ void world_free(World** self) {
 
 void world_generate(World* self) {
   for (int x = 0; x < self->_width; x++) {
-    int ground_level = 20 - 2 * sin(x / 10.) + sin(x / 2.);
+    int ground_level = 20 - 2 * sin(x / 12.) + sin(x / 2.);
     int dirt_offset = 2 + rand() % 3;
 
     for (int y = 0; y < self->_height; y++) {
@@ -45,7 +50,6 @@ void world_generate(World* self) {
 }
 
 void world_draw(World* self) {
-  printw("%d %d", self->_height, self->_width);
   for (int x = 0; x < self->_width; x++) {
     for (int y = 0; y < self->_height; y++) {
       move(y, x);
@@ -78,13 +82,13 @@ void world_draw(World* self) {
 }
 
 BlockType world_get_block_type(World* self, Point p) {
-  if (p.x < 0 || p.x > self->_width - 1 || p.y < 0 || p.x > self->_height - 1)
+  if (p.x < 0 || p.x > self->_width - 1 || p.y < 0 || p.y > self->_height - 1)
     return BlockTypeEmpty;
 
   return self->_grid[p.x][p.y];
 }
 
-bool is_penetrable(World* self, Point p) {
+bool world_is_penetrable(World* self, Point p) {
   BlockType block_type = world_get_block_type(self, p);
   bool can = block_type == BlockTypeEmpty || block_type == BlockTypeTree;
   return can;
