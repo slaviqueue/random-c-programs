@@ -1,11 +1,5 @@
-#include <curses.h>
 #include <ncurses.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "side-walker/colors.h"
 #include "side-walker/game.h"
-#include "side-walker/player.h"
-#include "side-walker/world.h"
 
 // I don't know where to get all available colors in ncurses, so sometimes I
 // just print the whole palette to find a color I need

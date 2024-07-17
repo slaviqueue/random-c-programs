@@ -47,8 +47,8 @@ void viewport_draw(Viewport* self,
       position.y > self->_viewport_height)
     return;
 
+  attron(COLOR_PAIR(color_pair));
   move(position.y, position.x);
-  attron(COLOR_PAIR(color_pair));
   printw("%c", ch);
-  attron(COLOR_PAIR(color_pair));
+  attroff(COLOR_PAIR(color_pair));
 }
