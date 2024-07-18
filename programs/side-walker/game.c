@@ -73,9 +73,6 @@ static void handle_exit() {
 static WINDOW* make_viewport_window() {
   WINDOW* win = newwin(VIEWPORT_HEIGHT, VIEWPORT_WIDTH, 0, 0);
   box(win, '|', '-');
-  noecho();
-  start_color();
-  colors_register();
   wtimeout(win, GETCH_TIMEOUT);
 
   return win;
@@ -83,6 +80,10 @@ static WINDOW* make_viewport_window() {
 
 static void init_curses() {
   initscr();
+  start_color();
+  noecho();
+
+  colors_register();
 
   if (!has_colors()) {
     fprintf(stderr, "No colors\n");
