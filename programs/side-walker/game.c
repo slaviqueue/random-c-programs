@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include "side-walker/colors.h"
 #include "side-walker/common.h"
+#include "side-walker/defs.h"
+#include "side-walker/dialog.h"
 #include "side-walker/player.h"
 #include "side-walker/point.h"
 #include "side-walker/viewport.h"
@@ -11,6 +13,7 @@
 static void handle_exit();
 static void init_curses();
 static WINDOW* make_viewport_window();
+static WINDOW* make_dialog_window();
 
 static int previous_cursor_mode;
 
@@ -24,10 +27,15 @@ GameState* game_make() {
 
   WINDOW* viewport_window = make_viewport_window();
   game->_viewport = viewport_make(viewport_window);
+
+  WINDOW* dialog_window = make_dialog_window();
+  game->_dialog = dialog_make(dialog_window);
+
   game->_player = player_make();
   game->_world = world_make();
 
-  previous_cursor_mode = 0;
+  previous_cursor_mode = curs_set(0);
+  atexit(handle_exit);
 
   return game;
 }
@@ -36,6 +44,7 @@ void game_free(GameState** self) {
   viewport_free(&(*self)->_viewport);
   player_free(&(*self)->_player);
   world_free(&(*self)->_world);
+  dialog_free(&(*self)->_dialog);
 
   free(*self);
   *self = NULL;
@@ -91,7 +100,13 @@ static void init_curses() {
     fprintf(stderr, "No colors\n");
     exit(EXIT_FAILURE);
   }
+}
 
-  previous_cursor_mode = curs_set(0);
-  atexit(handle_exit);
+static WINDOW* make_dialog_window() {
+  WINDOW* win = newwin(DIALOG_HEIGHT, DIALOG_WIDTH, VIEWPORT_HEIGHT, 0);
+  box(win, '|', '-');
+  mvwprintw(win, 1, 1, "test");
+  wrefresh(win);
+
+  return win;
 }
