@@ -60,7 +60,6 @@ void game_loop(GameState* self) {
   new_viewport_position.y = self->_player->_position_y;
   viewport_set_position(self->_viewport, new_viewport_position);
 
-  // refresh();
   world_draw(self->_world, self->_viewport);
   player_draw(self->_player, self->_viewport);
 }
