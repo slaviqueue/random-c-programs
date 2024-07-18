@@ -1,6 +1,6 @@
 #pragma once
 
-#define FRAMERATE 10
+#define FRAMERATE 8
 #define WORLD_WIDTH 128
 #define WORLD_HEIGHT 40
 #define VIEWPORT_WIDTH 32
