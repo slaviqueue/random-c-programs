@@ -14,6 +14,7 @@ Viewport* viewport_make(WINDOW* win) {
 }
 
 void viewport_free(Viewport** self) {
+  // Should we free the window somehow?
   free(*self);
   *self = NULL;
 }

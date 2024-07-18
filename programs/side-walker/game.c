@@ -63,6 +63,8 @@ void game_loop(GameState* self) {
 
   world_draw(self->_world, self->_viewport);
   player_draw(self->_player, self->_viewport);
+
+  napms(1000 / FRAMERATE);
 }
 
 static void handle_exit() {
@@ -73,7 +75,7 @@ static void handle_exit() {
 static WINDOW* make_viewport_window() {
   WINDOW* win = newwin(VIEWPORT_HEIGHT, VIEWPORT_WIDTH, 0, 0);
   box(win, '|', '-');
-  wtimeout(win, GETCH_TIMEOUT);
+  nodelay(win, TRUE);
 
   return win;
 }
