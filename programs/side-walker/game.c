@@ -105,7 +105,7 @@ static void init_curses() {
 static WINDOW* make_dialog_window() {
   WINDOW* win = newwin(DIALOG_HEIGHT, DIALOG_WIDTH, VIEWPORT_HEIGHT, 0);
   box(win, '|', '-');
-  mvwprintw(win, 1, 1, "test");
+  mvwprintw(win, 1, 1, "Just walking around");
   wrefresh(win);
 
   return win;
