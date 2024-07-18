@@ -21,6 +21,7 @@ GameState* game_make() {
     crash("could not allocate game");
 
   init_curses();
+
   WINDOW* viewport_window = make_viewport_window();
   game->_viewport = viewport_make(viewport_window);
   game->_player = player_make();

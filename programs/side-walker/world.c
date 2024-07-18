@@ -58,8 +58,10 @@ void world_draw(World* self, Viewport* viewport) {
       int world_x = viewport_brect.top_left.x + x;
       int world_y = viewport_brect.top_left.y + y;
 
-      if (world_x < 0 || world_y < 0)
+      if (world_x < 0 || world_y < 0) {
+        viewport_draw(viewport, (Point){x, y}, ' ', ColorPairSky);
         continue;
+      }
 
       BlockType world_block = self->_grid[world_x][world_y];
       Point point = {x, y};
