@@ -12,5 +12,5 @@ typedef struct {
 
 Player* player_make();
 void player_free(Player** self);
-void player_control(Player* self, World* world);
+void player_control(Player* self, World* world, WINDOW* win);
 void player_draw(Player* self, Viewport* viewport);

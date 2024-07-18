@@ -4,11 +4,12 @@
 #include "side-walker/defs.h"
 #include "side-walker/point.h"
 
-Viewport* viewport_make() {
+Viewport* viewport_make(WINDOW* win) {
   Viewport* viewport = malloc(sizeof(Viewport));
   viewport->_world_position = (Point){0, 0};
   viewport->_viewport_width = VIEWPORT_WIDTH;
   viewport->_viewport_height = VIEWPORT_HEIGHT;
+  viewport->_win = win;
   return viewport;
 }
 
@@ -43,12 +44,13 @@ void viewport_draw(Viewport* self,
                    Point position,
                    char ch,
                    ColorPair color_pair) {
-  if (position.x < 0 || position.x > self->_viewport_width || position.y < 0 ||
-      position.y > self->_viewport_height)
+  // We don't want to draw over the border
+  if (position.x < 1 || position.x > self->_viewport_width - 2 ||
+      position.y < 1 || position.y > self->_viewport_height - 2)
     return;
 
-  attron(COLOR_PAIR(color_pair));
-  move(position.y, position.x);
-  printw("%c", ch);
-  attroff(COLOR_PAIR(color_pair));
+  wattron(self->_win, COLOR_PAIR(color_pair));
+  wmove(self->_win, position.y, position.x);
+  wprintw(self->_win, "%c", ch);
+  wattroff(self->_win, COLOR_PAIR(color_pair));
 }

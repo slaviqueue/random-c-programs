@@ -1,5 +1,4 @@
 #include "player.h"
-#include <curses.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include "side-walker/colors.h"
@@ -27,8 +26,8 @@ void player_free(Player** self) {
   *self = NULL;
 }
 
-void player_control(Player* self, World* world) {
-  int key = getch();
+void player_control(Player* self, World* world, WINDOW* win) {
+  int key = wgetch(win);
 
   switch (key) {
     case 'a':

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <curses.h>
 #include "side-walker/colors.h"
 #include "side-walker/point.h"
 
@@ -7,6 +8,7 @@ typedef struct {
   int _viewport_width;
   int _viewport_height;
   Point _world_position;
+  WINDOW* _win;
 } Viewport;
 
 typedef struct {
@@ -14,7 +16,7 @@ typedef struct {
   Point bottom_right;
 } ViewportBoundingRect;
 
-Viewport* viewport_make();
+Viewport* viewport_make(WINDOW* win);
 void viewport_free(Viewport** self);
 void viewport_set_position(Viewport* self, Point world_position);
 Point viewport_get_position(Viewport* self);

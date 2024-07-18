@@ -10,6 +10,7 @@
 
 static void handle_exit();
 static void init_curses();
+static WINDOW* make_viewport_window();
 
 static int previous_cursor_mode;
 
@@ -19,7 +20,9 @@ GameState* game_make() {
   if (!game)
     crash("could not allocate game");
 
-  game->_viewport = viewport_make();
+  init_curses();
+  WINDOW* viewport_window = make_viewport_window();
+  game->_viewport = viewport_make(viewport_window);
   game->_player = player_make();
   game->_world = world_make();
 
@@ -38,15 +41,13 @@ void game_free(GameState** self) {
 }
 
 void game_init(GameState* self) {
-  init_curses();
-  colors_register();
   world_generate(self->_world);
   viewport_set_position(self->_viewport, (Point){self->_player->_position_x,
                                                  self->_player->_position_y});
 }
 
 void game_loop(GameState* self) {
-  player_control(self->_player, self->_world);
+  player_control(self->_player, self->_world, self->_viewport->_win);
 
   Point viewport_position = viewport_get_position(self->_viewport);
   Point new_viewport_position = viewport_position;
@@ -59,16 +60,29 @@ void game_loop(GameState* self) {
   new_viewport_position.y = self->_player->_position_y;
   viewport_set_position(self->_viewport, new_viewport_position);
 
-  refresh();
+  // refresh();
   world_draw(self->_world, self->_viewport);
   player_draw(self->_player, self->_viewport);
 }
 
-static void init_curses() {
-  initscr();
+static void handle_exit() {
+  curs_set(previous_cursor_mode);
+  endwin();
+}
+
+static WINDOW* make_viewport_window() {
+  WINDOW* win = newwin(VIEWPORT_HEIGHT, VIEWPORT_WIDTH, 0, 0);
+  box(win, '|', '-');
   noecho();
   start_color();
-  timeout(300);
+  colors_register();
+  wtimeout(win, GETCH_TIMEOUT);
+
+  return win;
+}
+
+static void init_curses() {
+  initscr();
 
   if (!has_colors()) {
     fprintf(stderr, "No colors\n");
@@ -77,9 +91,4 @@ static void init_curses() {
 
   previous_cursor_mode = curs_set(0);
   atexit(handle_exit);
-}
-
-static void handle_exit() {
-  curs_set(previous_cursor_mode);
-  endwin();
 }
